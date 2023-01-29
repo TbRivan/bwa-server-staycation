@@ -10,6 +10,8 @@ const Member = require("../models/Member");
 const fs = require("fs-extra");
 const path = require("path");
 const bcrypt = require("bcryptjs");
+require("dotenv").config();
+const url = process.env.URL_NAME;
 
 module.exports = {
   viewSignin: async (req, res) => {
@@ -157,6 +159,7 @@ module.exports = {
         alert,
         bank,
         user: req.session.user,
+        url,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
@@ -236,6 +239,7 @@ module.exports = {
         .populate({
           path: "imageId",
           select: "id imageUrl",
+          url,
         })
         .populate({ path: "categoryId", select: "id name" });
       const category = await Category.find();
@@ -306,6 +310,7 @@ module.exports = {
         item,
         action: "show image",
         user: req.session.user,
+        url,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
@@ -434,6 +439,7 @@ module.exports = {
         feature,
         activity,
         user: req.session.user,
+        url,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
@@ -627,6 +633,7 @@ module.exports = {
         user: req.session.user,
         booking,
         alert,
+        url,
       });
     } catch (error) {
       res.redirect("/admin/booking");
