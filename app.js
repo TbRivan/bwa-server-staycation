@@ -6,10 +6,12 @@ var logger = require("morgan");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
+require("dotenv").config();
 // import mongoose
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb://127.0.0.1:27017/db_staycation");
+// mongoose.connect("mongodb://127.0.0.1:27017/db_staycation");
+mongoose.connect(process.env.DATABASE_URL);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
